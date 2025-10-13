@@ -1,1 +1,28 @@
 
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        result = []
+        len_p = len(p)
+        len_s = len(s)
+
+        if len_p > len_s:
+            return result
+
+        # Frequency maps
+        p_count = Counter(p)
+        window = Counter(s[:len_p])
+
+        # Check initial window
+        if p_count == window:
+            result.append(0)
+
+        # Slide window across s
+        for i in range(len_p, len_s):
+            window[s[i]] += 1
+            window[s[i - len_p]] -= 1
+            if window[s[i - len_p]] == 0:
+                del window[s[i - len_p]]
+            if window == p_count:
+                result.append(i - len_p + 1)
+
+        return result
