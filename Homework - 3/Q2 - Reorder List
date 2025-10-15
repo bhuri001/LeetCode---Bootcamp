@@ -1,1 +1,22 @@
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        new = []
+        curr = head
+        while curr:
+            new.append(curr)
+            curr = curr.next
 
+    
+        i, j = 0, len(new) - 1
+        while i < j:
+            new[i].next = new[j]
+            i += 1
+            if i == j:
+                break
+            new[j].next = new[i]
+            j -= 1
+
+        new[i].next = None
